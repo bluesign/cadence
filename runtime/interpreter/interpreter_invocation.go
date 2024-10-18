@@ -125,7 +125,7 @@ func (interpreter *Interpreter) invokeFunctionValue(
 		typeParameterTypes,
 		locationRange,
 	)
-	interpreter.reportFunctionInvocation(function, &invocation)
+	interpreter.reportFunctionInvocation(invocationPosition, &invocation)
 
 	resultValue := function.invoke(invocation)
 	interpreter.reportInvokedFunctionReturn(resultValue)
