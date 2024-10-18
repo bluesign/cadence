@@ -76,10 +76,10 @@ type OnLoopIterationFunc func(
 )
 
 // OnFunctionInvocationFunc is a function that is triggered when a function is about to be invoked.
-type OnFunctionInvocationFunc func(inter *Interpreter)
+type OnFunctionInvocationFunc func(inter *Interpreter, invocation *Invocation)
 
 // OnInvokedFunctionReturnFunc is a function that is triggered when an invoked function returned.
-type OnInvokedFunctionReturnFunc func(inter *Interpreter)
+type OnInvokedFunctionReturnFunc func(inter *Interpreter, value Value)
 
 // OnRecordTraceFunc is a function that records a trace.
 type OnRecordTraceFunc func(
@@ -4958,7 +4958,7 @@ func (interpreter *Interpreter) reportLoopIteration(pos ast.HasPosition) {
 	}
 }
 
-func (interpreter *Interpreter) reportFunctionInvocation() {
+func (interpreter *Interpreter) reportFunctionInvocation(invocation *Invocation) {
 	config := interpreter.SharedState.Config
 
 	onMeterComputation := config.OnMeterComputation
@@ -4968,11 +4968,11 @@ func (interpreter *Interpreter) reportFunctionInvocation() {
 
 	onFunctionInvocation := config.OnFunctionInvocation
 	if onFunctionInvocation != nil {
-		onFunctionInvocation(interpreter)
+		onFunctionInvocation(interpreter, invocation)
 	}
 }
 
-func (interpreter *Interpreter) reportInvokedFunctionReturn() {
+func (interpreter *Interpreter) reportInvokedFunctionReturn(value Value) {
 	config := interpreter.SharedState.Config
 
 	onInvokedFunctionReturn := config.OnInvokedFunctionReturn
@@ -4980,7 +4980,7 @@ func (interpreter *Interpreter) reportInvokedFunctionReturn() {
 		return
 	}
 
-	onInvokedFunctionReturn(interpreter)
+	onInvokedFunctionReturn(interpreter, value)
 }
 
 func (interpreter *Interpreter) ReportComputation(compKind common.ComputationKind, intensity uint) {

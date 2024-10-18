@@ -1164,14 +1164,14 @@ func (e *interpreterEnvironment) loadContract(
 	}
 }
 
-func (e *interpreterEnvironment) newOnFunctionInvocationHandler() func(_ *interpreter.Interpreter) {
-	return func(_ *interpreter.Interpreter) {
+func (e *interpreterEnvironment) newOnFunctionInvocationHandler() func(_ *interpreter.Interpreter, _ *interpreter.Invocation) {
+	return func(_ *interpreter.Interpreter, _ *interpreter.Invocation) {
 		e.stackDepthLimiter.OnFunctionInvocation()
 	}
 }
 
-func (e *interpreterEnvironment) newOnInvokedFunctionReturnHandler() func(_ *interpreter.Interpreter) {
-	return func(_ *interpreter.Interpreter) {
+func (e *interpreterEnvironment) newOnInvokedFunctionReturnHandler() func(_ *interpreter.Interpreter, _ interpreter.Value) {
+	return func(_ *interpreter.Interpreter, _ interpreter.Value) {
 		e.stackDepthLimiter.OnInvokedFunctionReturn()
 	}
 }

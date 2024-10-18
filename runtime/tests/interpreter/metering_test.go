@@ -355,7 +355,7 @@ func TestInterpretFunctionInvocationHandler(t *testing.T) {
 		importingChecker.Location,
 		&interpreter.Config{
 			Storage: storage,
-			OnFunctionInvocation: func(inter *interpreter.Interpreter) {
+			OnFunctionInvocation: func(inter *interpreter.Interpreter, _ *interpreter.Invocation) {
 
 				id, ok := interpreterIDs[inter]
 				if !ok {

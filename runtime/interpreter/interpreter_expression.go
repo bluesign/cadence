@@ -1227,8 +1227,6 @@ func (interpreter *Interpreter) visitInvocationExpressionWithImplicitArgument(in
 		argumentTypes = append(argumentTypes, interpreter.MustSemaTypeOfValue(*implicitArg))
 	}
 
-	interpreter.reportFunctionInvocation()
-
 	resultValue := interpreter.invokeFunctionValue(
 		function,
 		arguments,
@@ -1239,8 +1237,6 @@ func (interpreter *Interpreter) visitInvocationExpressionWithImplicitArgument(in
 		typeParameterTypes,
 		invocationExpression,
 	)
-
-	interpreter.reportInvokedFunctionReturn()
 
 	// If this is invocation is optional chaining, wrap the result
 	// as an optional, as the result is expected to be an optional

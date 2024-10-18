@@ -125,8 +125,10 @@ func (interpreter *Interpreter) invokeFunctionValue(
 		typeParameterTypes,
 		locationRange,
 	)
+	interpreter.reportFunctionInvocation(&invocation)
 
 	resultValue := function.invoke(invocation)
+	interpreter.reportInvokedFunctionReturn(resultValue)
 
 	functionReturnType := function.FunctionType().ReturnTypeAnnotation.Type
 
