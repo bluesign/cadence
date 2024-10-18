@@ -1164,8 +1164,8 @@ func (e *interpreterEnvironment) loadContract(
 	}
 }
 
-func (e *interpreterEnvironment) newOnFunctionInvocationHandler() func(_ *interpreter.Interpreter, _ *interpreter.Invocation) {
-	return func(_ *interpreter.Interpreter, _ *interpreter.Invocation) {
+func (e *interpreterEnvironment) newOnFunctionInvocationHandler() func(_ *interpreter.Interpreter, _ interpreter.FunctionValue, _ *interpreter.Invocation) {
+	return func(_ *interpreter.Interpreter, _ interpreter.FunctionValue, _ *interpreter.Invocation) {
 		e.stackDepthLimiter.OnFunctionInvocation()
 	}
 }

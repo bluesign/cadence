@@ -76,7 +76,7 @@ type OnLoopIterationFunc func(
 )
 
 // OnFunctionInvocationFunc is a function that is triggered when a function is about to be invoked.
-type OnFunctionInvocationFunc func(inter *Interpreter, invocation *Invocation)
+type OnFunctionInvocationFunc func(inter *Interpreter, function FunctionValue, invocation *Invocation)
 
 // OnInvokedFunctionReturnFunc is a function that is triggered when an invoked function returned.
 type OnInvokedFunctionReturnFunc func(inter *Interpreter, value Value)
@@ -4958,7 +4958,7 @@ func (interpreter *Interpreter) reportLoopIteration(pos ast.HasPosition) {
 	}
 }
 
-func (interpreter *Interpreter) reportFunctionInvocation(invocation *Invocation) {
+func (interpreter *Interpreter) reportFunctionInvocation(function FunctionValue, invocation *Invocation) {
 	config := interpreter.SharedState.Config
 
 	onMeterComputation := config.OnMeterComputation
@@ -4968,7 +4968,7 @@ func (interpreter *Interpreter) reportFunctionInvocation(invocation *Invocation)
 
 	onFunctionInvocation := config.OnFunctionInvocation
 	if onFunctionInvocation != nil {
-		onFunctionInvocation(interpreter, invocation)
+		onFunctionInvocation(interpreter, function, invocation)
 	}
 }
 
